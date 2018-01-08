@@ -35,11 +35,11 @@ server.listen(process.env.port || process.env.PORT || 3978, function () {
 
 //Configure and create 
 var config = {
-  userName: 'dilabadmin', 
-  password: 'Capgemini@123', 
-  server: 'dilabsql-02', 
+  userName: 'xxx', 
+  password: 'xx@xx', 
+  server: 'xx-xx', 
   options:{ 
-    database: 'EDW_PS_ASSET_AGG', 
+    database: 'xxx', 
     encrypt: true
   }
 }
