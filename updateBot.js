@@ -43,11 +43,11 @@
 
 //Configure and create 
 var config = {
-	userName: 'dilabadmin', 
-	password: 'Capgemini@123', 
-	server: 'dilabsql-02', 
+	userName: '****', 
+	password: '*****', 
+	server: '******', 
 	options:{ 
-		database: 'EDW_PS_ASSET_BOT', 
+		database: '******', 
 		encrypt: true
 	}
 }
