@@ -1,7 +1,7 @@
       /*Name: Asset Bot*/
       /*version- v06:*/
       /*Last updated:15/12/2017: 10:00 PM*/
-      /*Author:Suryadeep & Gurava Raj*/
+      /*Author:Suryadeep*/
       /*LUIS :demoasset*/
 
       var restify = require('restify');
