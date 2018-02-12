@@ -35,6 +35,7 @@
       let UtterFetchValue2="";
       var StoreForFAQ= [];
       var StoreReturnForFAQ=[];
+      var StoreSessionHistory=[];
       var SlNo = 0;
 
       server.listen(process.env.port || process.env.PORT || 3978, function () {
@@ -45,9 +46,9 @@
 var config = {
 	userName: '****', 
 	password: '*****', 
-	server: '******', 
+	server: '****', 
 	options:{ 
-		database: '******', 
+		database: '*****', 
 		encrypt: true
 	}
 }
@@ -412,12 +413,6 @@ function fetchTop(session){
 
 }
 
-function sendValues(session,args){
-  console.log(args);
-  SlNo=SlNo+1;
-  session.send('%d) %s--> %s',SlNo,StoreReturnForFAQ[args-2],StoreReturnForFAQ[args-1])
-}
-
 function getDisplayValues(session){
   /*Utterance and value from FAQ(1.5.4)*/
   /*Author: Suryadeep*/
@@ -454,15 +449,16 @@ function getDisplayValues(session){
       StoreReturnForFAQ[i]=column.value;
       i=i+1;
     });
-    sendValues(session,i);
+    sendValues(session,i,StoreReturnForFAQ);
   });
     console.log('column execution done');
 }
 
-function getHistory(){
+function getHistory(session){
   /*Session History(1.5.5)*/
   /*Author: Suryadeep*/
   /*Last Updated: 12th Feb*/
+  var i=0;
   global.GetHistory= new Request(
     "SELECT [utterance],[executed_value] FROM [UserLogs] WHERE [Flag]='Y'",
     function(err){
@@ -475,6 +471,20 @@ function getHistory(){
     }
   );
   connectionInsert.execSql(GetHistory);
+
+  GetHistory.on('row',function(columns){
+    columns.forEach(function(column){
+      StoreSessionHistory[i]=column.value;
+      i=i+1;
+    });
+    sendValues(session,i,StoreSessionHistory);
+  });
+}
+
+function sendValues(session,args,args1){
+  console.log(args);
+  SlNo=SlNo+1;
+  session.send('%d) %s--> %s',SlNo,args1[args-2],args1[args-1])
 }
 
 intents.matches('Greetings',[function(session,args){
@@ -502,6 +512,9 @@ intents.matches('Workorder',function(session,args){
 })
 intents.matches('Top',function(session,args){
   getentities(session,args)
+})
+intents.matches('History',function(session,args){
+  getHistory(session);
 })
 .onDefault((session) => {
 	session.send('Sorry, I did not understand \'%s\'.', session.message.text);
