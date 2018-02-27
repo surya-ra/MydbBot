@@ -1,5 +1,5 @@
       /*Name: Asset Bot*/
-      /*version- v06:*/
+      /*version- 1.6.0:*/
       /*Last updated:15/12/2017: 10:00 PM*/
       /*Author:Suryadeep & Gurava Raj*/
       /*LUIS :demoasset*/
